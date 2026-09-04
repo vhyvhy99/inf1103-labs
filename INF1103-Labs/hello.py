@@ -1,1 +1,4 @@
-print("hello")
+print("============================")
+print("Welcome Post")
+print("My first post!")
+print("============================")
