@@ -2,3 +2,10 @@
 total_inventory = 0
 failed_entries = 0
 
+# 2. Run in a continuous loop asking user to enter a stock quantity, until the user types quit.
+while True:
+    user_input = input("Enter stock quantity (or type 'quit' to exit): ").strip()
+    
+    if user_input.lower() == 'quit':
+        break
+
