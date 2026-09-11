@@ -15,3 +15,5 @@ while True:
         continue
 
     stock_value = int(user_input)
+
+    total_inventory += stock_value
