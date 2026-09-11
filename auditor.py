@@ -12,11 +12,18 @@ while True:
 # 3. Accept stock values as integers.
     stock_value = int(user_input)
 
-# 4. Handle invalid input: If the user enters a string (e.g., "ten"), reject it, print an error, 
-# and move to the next iteration. (Hint: use .isdigit()).
-# Note: .isdigit() also handles negative signs by returning False, which helps with rule 5.
+ # 4. Handle invalid input: If the user enters a string (e.g., "ten"), reject it, print an error, 
+    # and move to the next iteration. (Hint: use .isdigit()).
+    # Note: .isdigit() also handles negative signs by returning False, which helps with rule 5.
     if not user_input.isdigit():
         # Checking if it's a negative integer to provide a specific business rule error
         if user_input.startswith('-') and user_input[1:].isdigit():
 
+ # 5. Enforce business rules: Reject negative numbers.
+            print(f"Error: Negative numbers are not allowed. Rejected: {user_input}")
+        else:
+            print(f"Error: Invalid input. Please enter a valid integer. Rejected: {user_input}")
             
+        failed_entries += 1
+        continue      
+    
