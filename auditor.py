@@ -29,4 +29,9 @@ while True:
     
     # 6. Manage State: Keep a running total of the inventory.
     total_inventory += stock_value
-    
+
+    # 7. Trigger Overstock Alert: If the total inventory exceeds 500 units, print an alert and break the loop immediately.
+    if total_inventory > 500:
+        print(f"ALERT: Overstock threshold exceeded! Total inventory is {total_inventory} units.")
+        break
+
