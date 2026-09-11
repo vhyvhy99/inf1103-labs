@@ -25,5 +25,8 @@ while True:
             print(f"Error: Invalid input. Please enter a valid integer. Rejected: {user_input}")
             
         failed_entries += 1
-        continue      
+        continue
+    
+    # 6. Manage State: Keep a running total of the inventory.
+    total_inventory += stock_value
     
