@@ -7,3 +7,6 @@ while True:
         break
 
 stock_value = int(user_input)
+
+if not user_input.isdigit():
+        if user_input.startswith('-') and user_input[1:].isdigit():
