@@ -17,3 +17,7 @@ while True:
     stock_value = int(user_input)
 
     total_inventory += stock_value
+
+    if total_inventory > 500:
+            print(f"ALERT: Overstock threshold exceeded! Total inventory is {total_inventory} units.")
+            break
