@@ -5,3 +5,5 @@ while True:
     user_input = input("Enter a stock quantity (or type 'quit'): ").strip()
     if user_input.lower() == 'quit':
         break
+
+stock_value = int(user_input)
