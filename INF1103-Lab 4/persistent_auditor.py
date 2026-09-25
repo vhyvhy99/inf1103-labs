@@ -61,3 +61,50 @@ def generate_report(total_units, failed_attempts):
     print("\n--- Final Summary Report ---")
     print(f"Total Deliveries Processed: {total_units}")
     print(f"Number of Failed/Rejected Entries: {failed_attempts}")
+    
+def main():
+    total_inventory, transaction_history = load_inventory(ORDERS_FILE)
+
+    total_tax_collected = 0
+    successful_deliveries = len(transaction_history)
+    failed_attempts = 0
+
+    print("Current Orders:\n")
+    if transaction_history:
+        for order in transaction_history:
+            print(order)
+    print()
+
+    next_order_id = 1001 + len(transaction_history)
+
+    while True:
+        product, quantity = get_valid_input()
+
+        if product == "quit":
+            break
+
+        if product is None or quantity is None:
+            failed_attempts += 1
+            continue
+
+        total_inventory = process_delivery(total_inventory, quantity)
+        tax = calculate_tax(quantity)
+        total_tax_collected += tax
+        successful_deliveries += 1
+
+        order_line = f"{next_order_id},{product},{quantity}"
+
+        transaction_history.append(order_line)
+
+        print(f"\nNew Order Added:\n{order_line}")
+        print(f"Tax collected for entry: ${tax:.2f}")
+        print(f"Running Total Inventory: {total_inventory} units\n")
+
+        next_order_id += 1
+
+    generate_report(successful_deliveries, failed_attempts)
+
+    save_inventory(total_inventory, transaction_history, total_tax_collected, ORDERS_FILE, INVENTORY_FILE)
+
+if __name__ == "__main__":
+    main()
