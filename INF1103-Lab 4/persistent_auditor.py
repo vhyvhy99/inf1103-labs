@@ -1,57 +1,20 @@
-gittotal_inventory = 0
+ORDERS_FILE = "orders.txt"
+INVENTORY_FILE = "inventory.txt"
 
-def get_valid_input():
-    user_input = input("Enter a stock quantity (or type 'quit' to exit): ").strip().lower()
-    if user_input == 'quit':
-        return 'quit'
-            
-    try:
-        value = int(user_input)
-        if value < 0:
-            print("Invalid input. Quantity cannot be negative.")
-            return None
-        return value
-    except ValueError:
-        print("Invalid input. Please enter a valid whole number or 'quit'.")
-        return None
-
-def process_delivery(current_total, new_value):
-    return current_total + new_value
-
-def calculate_tax(amount):
-    return amount * 0.10
-
-def generate_report(total_units, failed_attempts):
-    print("\n--- Final Summary Report ---")
-    print(f"Total Deliveries Processed: {total_units}")
-    print(f"Number of Failed/Rejected Entries: {failed_attempts}")
-
-def main():
+def load_inventory(filename=ORDERS_FILE):
+    history = []
     total_inventory = 0
-    total_tax_collected = 0
-    successful_deliveries = 0
-    failed_attempts = 0
 
-    while True:
-        result = get_valid_input()
-        
-        if result == 'quit':
-            break
+    try:
+        with open(filename, "r") as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    history.append(line)
+                    parts = line.split(",")
+                    if len(parts) >= 3 and parts[-1].strip().isdigit():
+                        total_inventory += int(parts[-1].strip())
+    except FileNotFoundError:
+        pass 
 
-        if result is None:
-            failed_attempts += 1
-            continue
-            
-        total_inventory = process_delivery(total_inventory, result)
-        tax = calculate_tax(result)
-        total_tax_collected += tax
-        successful_deliveries += 1
-        
-        print(f"Added {result} units to inventory. ")
-        print(f"Tax collected: ${tax:.2f}")
-        print(f"Running Total Inventory: {total_inventory} units")
-        print(f"Total Tax Collected: ${total_tax_collected:.2f}\n")
-    generate_report(successful_deliveries, failed_attempts)
-
-if __name__ == "__main__":
-    main()
+    return total_inventory, history
