@@ -18,3 +18,20 @@ def load_inventory(filename=ORDERS_FILE):
         pass 
 
     return total_inventory, history
+
+def save_inventory(total_inventory, history, total_tax, filename_orders, filename_tax):
+    try:
+        with open(filename_orders, "w") as f:
+            for item in history:
+                f.write(f"{item}\n")
+        print(f"Order successfully saved to {filename_orders}")
+    except Exception as e:
+        print(f"Error saving orders: {e}")
+
+    try:
+        with open(filename_tax, "w") as f:
+            f.write(f"Total Inventory Units: {total_inventory}\n")
+            f.write(f"Total Tax Collected: ${total_tax:.2f}\n")
+        print(f"Tax calculations saved to {filename_tax}")
+    except Exception as e:
+        print(f"Error saving tax details: {e}")
