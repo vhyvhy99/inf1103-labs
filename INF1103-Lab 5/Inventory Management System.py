@@ -18,7 +18,6 @@ def load_inventory():
         return {}
 
 def save_inventory(inventory, silent=False):
-    """Save inventory dictionary to inventory.json."""
     if not silent:
         print("Saving inventory...")
     with open(FILENAME, "w") as file:
@@ -27,7 +26,6 @@ def save_inventory(inventory, silent=False):
         print(f"Inventory saved successfully to {FILENAME}.")
 
 def display_all(inventory):
-    """Option 1: Display all products in inventory."""
     print("\nCurrent Inventory")
     print("-" * 48)
     if not inventory:
@@ -43,7 +41,6 @@ def display_all(inventory):
     print("-" * 48)
 
 def add_product(inventory):
-    """Option 2: Add a new product to inventory."""
     print("\nAdd New Product")
     item_id = input("Product ID: ").strip()
 
@@ -61,3 +58,22 @@ def add_product(inventory):
 
     inventory[item_id] = {"name": name, "price": price, "stock": stock}
     print("Product added successfully!")
+
+
+def update_stock(inventory):
+    print("\nUpdate Stock")
+    item_id = input("Enter Product ID: ").strip()
+
+    if item_id in inventory:
+        item = inventory[item_id]
+        print("\nProduct Found:")
+        print(f"Name: {item['name']}")
+        print(f"Current Stock: {item['stock']}")
+        try:
+            new_stock = int(input("New Stock Quantity: "))
+            item["stock"] = new_stock
+            print("Stock updated successfully!")
+        except ValueError:
+            print("Invalid input. Stock must be an integer.")
+    else:
+        print("Product not found.")
