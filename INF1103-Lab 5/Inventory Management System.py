@@ -25,3 +25,19 @@ def save_inventory(inventory, silent=False):
         json.dump(inventory, file, indent=4)
     if not silent:
         print(f"Inventory saved successfully to {FILENAME}.")
+
+def display_all(inventory):
+    """Option 1: Display all products in inventory."""
+    print("\nCurrent Inventory")
+    print("-" * 48)
+    if not inventory:
+        print("No items in inventory.")
+    else:
+        for item_id, details in inventory.items():
+            price = details["price"]
+            stock = details["stock"]
+            name = details["name"]
+            print(
+                f"ID: {item_id} | Name: {name} | Price: ${price:.2f} | Stock: {stock}"
+            )
+    print("-" * 48)
