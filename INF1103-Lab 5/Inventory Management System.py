@@ -16,3 +16,12 @@ def load_inventory():
     else:
         print(f"{FILENAME} not found. Starting with new inventory.")
         return {}
+
+def save_inventory(inventory, silent=False):
+    """Save inventory dictionary to inventory.json."""
+    if not silent:
+        print("Saving inventory...")
+    with open(FILENAME, "w") as file:
+        json.dump(inventory, file, indent=4)
+    if not silent:
+        print(f"Inventory saved successfully to {FILENAME}.")
