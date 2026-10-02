@@ -77,3 +77,19 @@ def update_stock(inventory):
             print("Invalid input. Stock must be an integer.")
     else:
         print("Product not found.")
+
+def search_product(inventory):
+    print("\nSearch Product")
+    item_id = input("Enter Product ID: ").strip()
+
+    if item_id in inventory:
+        item = inventory[item_id]
+        print("\nProduct Found")
+        print("-" * 48)
+        print(f"ID: {item_id}")
+        print(f"Name: {item['name']}")
+        print(f"Price: ${item['price']:.2f}")
+        print(f"Stock: {item['stock']}")
+        print("-" * 48)
+    else:
+        print("Product not found.")
