@@ -41,3 +41,23 @@ def display_all(inventory):
                 f"ID: {item_id} | Name: {name} | Price: ${price:.2f} | Stock: {stock}"
             )
     print("-" * 48)
+
+def add_product(inventory):
+    """Option 2: Add a new product to inventory."""
+    print("\nAdd New Product")
+    item_id = input("Product ID: ").strip()
+
+    if item_id in inventory:
+        print("Product ID already exists!")
+        return
+
+    name = input("Product Name: ").strip()
+    try:
+        price = float(input("Price: "))
+        stock = int(input("Stock Quantity: "))
+    except ValueError:
+        print("Invalid price or stock value.")
+        return
+
+    inventory[item_id] = {"name": name, "price": price, "stock": stock}
+    print("Product added successfully!")
