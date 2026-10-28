@@ -66,3 +66,23 @@ class Inventory:
                 product.display_information()
         print("-" * 48)
 
+
+def load_inventory(inventory):
+    # Loads inventory data from inventory.json and populates the Inventory object.
+    if os.path.exists(FILENAME):
+        try:
+            with open(FILENAME, "r") as file:
+                data = json.load(file)
+                for item_id, details in data.items():
+                    product = Product(
+                        product_id=item_id,
+                        name=details["name"],
+                        price=details["price"],
+                        stock=details["stock"]
+                    )
+                    inventory.add_product(product)
+                print(f"{FILENAME} found.\nInventory loaded successfully.")
+        except json.JSONDecodeError:
+            print("Error loading JSON file. Starting with empty inventory.")
+    else:
+        print(f"{FILENAME} not found. Starting with new inventory.")
