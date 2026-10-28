@@ -103,3 +103,24 @@ def save_inventory(inventory, silent=False):
     if not silent:
         print(f"Inventory saved successfully to {FILENAME}.")
 
+
+def add_product_menu(inventory):
+    # Handles user input for adding a new product.
+    print("\nAdd New Product")
+    item_id = input("Product ID: ").strip()
+
+    if inventory.search_product(item_id):
+        print("Product ID already exists!")
+        return
+
+    name = input("Product Name: ").strip()
+    try:
+        price = float(input("Price: "))
+        stock = int(input("Stock Quantity: "))
+    except ValueError:
+        print("Invalid price or stock value.")
+        return
+
+    new_product = Product(item_id, name, price, stock)
+    inventory.add_product(new_product)
+    print("Product added successfully!")
