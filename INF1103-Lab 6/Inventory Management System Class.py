@@ -145,3 +145,21 @@ def update_stock_menu(inventory):
     else:
         print("Product not found.")
 
+
+def search_product_menu(inventory):
+    # Handles user input for searching a product.
+    print("\nSearch Product")
+    item_id = input("Enter Product ID: ").strip()
+
+    product = inventory.search_product(item_id)
+    if product:
+        print("\nProduct Found")
+        print("-" * 48)
+        print(f"ID: {product.product_id}")
+        print(f"Name: {product.name}")
+        print(f"Price: ${product.price:.2f}")
+        print(f"Stock: {product.stock}")
+        print("-" * 48)
+    else:
+        print("Product not found.")
+
