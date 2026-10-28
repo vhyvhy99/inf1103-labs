@@ -163,3 +163,53 @@ def search_product_menu(inventory):
     else:
         print("Product not found.")
 
+
+def main():
+    print("=" * 40)
+    print("INVENTORY MANAGEMENT SYSTEM (OOP)")
+    print("=" * 40)
+
+    # Initialize sample data if JSON does not exist on first run
+    if not os.path.exists(FILENAME):
+    
+        with open(FILENAME, "w") as f:
+            json.dump(default_data, f, indent=4)
+
+    inventory = Inventory()
+    load_inventory(inventory)
+
+    while True:
+        print("\n----------- MENU -----------")
+        print("1. Display All Products")
+        print("2. Add Product")
+        print("3. Update Stock")
+        print("4. Search Product")
+        print("5. Save Inventory")
+        print("6. Exit")
+        print("----------------------------")
+
+        choice = input("Enter option: ").strip()
+
+        if choice == "1":
+            inventory.display_all()
+        elif choice == "2":
+            add_product_menu(inventory)
+        elif choice == "3":
+            update_stock_menu(inventory)
+        elif choice == "4":
+            search_product_menu(inventory)
+        elif choice == "5":
+            save_inventory(inventory)
+        elif choice == "6":
+            print("\nSaving inventory before exit...")
+            save_inventory(inventory, silent=True)
+            print("Inventory saved successfully.")
+            print("\nThank you for using Inventory Management System.")
+            print("Program terminated.")
+            break
+        else:
+            print("Invalid option. Please try again.")
+
+
+if __name__ == "__main__":
+    main()
