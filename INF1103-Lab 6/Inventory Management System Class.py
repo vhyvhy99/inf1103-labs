@@ -171,7 +171,11 @@ def main():
 
     # Initialize sample data if JSON does not exist on first run
     if not os.path.exists(FILENAME):
-    
+        default_data = {
+            "P001": {"name": "Laptop", "price": 999.99, "stock": 10},
+            "P002": {"name": "Smartphone", "price": 499.99, "stock": 25},
+            "P003": {"name": "Headphones", "price": 79.99, "stock": 50}
+        }
         with open(FILENAME, "w") as f:
             json.dump(default_data, f, indent=4)
 
