@@ -151,3 +151,19 @@ def load_inventory(inventory):
             print("Error loading JSON file. Starting with empty inventory.")
     else:
         print(f"{FILENAME} not found. Starting with new inventory.")
+
+def save_inventory(inventory, silent=False):
+    # Saves the current inventory collection to inventory.json.
+    if not silent:
+        print("Saving inventory...")
+    
+    data = {}
+    for item_id, product in inventory.products.items():
+        data[item_id] = product.to_dict()
+
+    with open(FILENAME, "w") as file:
+        json.dump(data, file, indent=4)
+        
+    if not silent:
+        print(f"Inventory saved successfully to {FILENAME}.")
+
