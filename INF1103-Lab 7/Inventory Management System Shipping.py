@@ -89,3 +89,30 @@ class DigitalProduct(Product):
             "download_size": self.download_size
         }
 
+# INVENTORY MANAGEMENT
+
+class Inventory:
+    # Responsible for managing a collection of Product objects.
+
+    def __init__(self):
+        self.products = {}  # Dictionary mapping product_id to Product objects
+
+    def add_product(self, product):
+        # Adds a Product object to the inventory collection.
+        self.products[product.product_id] = product
+
+    def search_product(self, product_id):
+        # Searches for and returns a Product object by its ID, or None if not found.
+        return self.products.get(product_id)
+
+    def display_all(self):
+        # Displays all products currently in the inventory.
+        print("\nCurrent Inventory")
+        print("-" * 75)
+        if not self.products:
+            print("No items in inventory.")
+        else:
+            for product in self.products.values():
+                product.display_information()
+        print("-" * 75)
+
