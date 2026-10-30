@@ -116,3 +116,38 @@ class Inventory:
                 product.display_information()
         print("-" * 75)
 
+
+def load_inventory(inventory):
+    # Loads inventory data from inventory.json and populates the Inventory object.
+    if os.path.exists(FILENAME):
+        try:
+            with open(FILENAME, "r") as file:
+                data = json.load(file)
+                for item_id, details in data.items():
+                    product_type = details.get("type")
+                    
+                    if product_type == "physical":
+                        product = PhysicalProduct(
+                            product_id=item_id,
+                            name=details["name"],
+                            price=details["price"],
+                            stock=details["stock"],
+                            weight=details["weight"]
+                        )
+                    elif product_type == "digital":
+                        product = DigitalProduct(
+                            product_id=item_id,
+                            name=details["name"],
+                            price=details["price"],
+                            stock=details["stock"],
+                            download_size=details["download_size"]
+                        )
+                    else:
+                        continue  # Skip invalid or legacy entries
+                        
+                    inventory.add_product(product)
+                print(f"{FILENAME} found.\nInventory loaded successfully.")
+        except json.JSONDecodeError:
+            print("Error loading JSON file. Starting with empty inventory.")
+    else:
+        print(f"{FILENAME} not found. Starting with new inventory.")
