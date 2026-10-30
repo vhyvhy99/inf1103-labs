@@ -205,3 +205,22 @@ def add_product_menu(inventory):
     inventory.add_product(new_product)
     print("Product added successfully!")
 
+
+def update_stock_menu(inventory):
+    # Handles user input for updating product stock.
+    print("\nUpdate Stock")
+    item_id = input("Enter Product ID: ").strip()
+
+    product = inventory.search_product(item_id)
+    if product:
+        print("\nProduct Found:")
+        print(f"Name: {product.name}")
+        print(f"Current Stock: {product.stock}")
+        try:
+            new_stock = int(input("New Stock Quantity: "))
+            product.update_stock(new_stock)
+            print("Stock updated successfully!")
+        except ValueError:
+            print("Invalid input. Stock must be an integer.")
+    else:
+        print("Product not found.")
