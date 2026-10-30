@@ -33,3 +33,35 @@ class CanBeShipped(ABC):
     def calculate_shipping_cost(self):
         """Calculates and returns the shipping cost."""
         pass
+    
+# SUBCLASSES
+
+class PhysicalProduct(Product, CanBeShipped):
+    """Represents a physical product that has weight and can be shipped."""
+
+    def __init__(self, product_id, name, price, stock, weight):
+        super().__init__(product_id, name, price, stock)
+        self.weight = weight
+
+    def display_information(self):
+        super().display_information()
+        print(f" | Weight: {self.weight} kg | Fulfilment: {self.get_fulfilment_info()}")
+
+    def get_fulfilment_info(self):
+        return "Requires physical shipping."
+
+    def calculate_shipping_cost(self):
+        # Example rule: Base shipping cost + cost per kg
+        base_rate = 5.00
+        per_kg_rate = 2.50
+        return base_rate + (self.weight * per_kg_rate)
+
+    def to_dict(self):
+        return {
+            "type": "physical",
+            "name": self.name,
+            "price": self._price,
+            "stock": self._stock,
+            "weight": self.weight
+        }
+
