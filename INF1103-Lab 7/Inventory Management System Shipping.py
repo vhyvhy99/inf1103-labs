@@ -33,7 +33,7 @@ class CanBeShipped(ABC):
     def calculate_shipping_cost(self):
         """Calculates and returns the shipping cost."""
         pass
-    
+
 # SUBCLASSES
 
 class PhysicalProduct(Product, CanBeShipped):
@@ -63,5 +63,29 @@ class PhysicalProduct(Product, CanBeShipped):
             "price": self._price,
             "stock": self._stock,
             "weight": self.weight
+        }
+
+
+class DigitalProduct(Product):
+    """Represents a digital product that has a download size."""
+
+    def __init__(self, product_id, name, price, stock, download_size):
+        super().__init__(product_id, name, price, stock)
+        self.download_size = download_size
+
+    def display_information(self):
+        super().display_information()
+        print(f" | Download Size: {self.download_size} MB | Fulfilment: {self.get_fulfilment_info()}")
+
+    def get_fulfilment_info(self):
+        return "Delivered digitally via download link."
+
+    def to_dict(self):
+        return {
+            "type": "digital",
+            "name": self.name,
+            "price": self._price,
+            "stock": self._stock,
+            "download_size": self.download_size
         }
 
