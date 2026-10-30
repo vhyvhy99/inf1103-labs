@@ -23,3 +23,13 @@ FILENAME = "inventory.json"
     def to_dict(self):
         """Converts the Product object into a dictionary for JSON serialization."""
         pass
+
+# INTERFACE
+
+class CanBeShipped(ABC):
+    """Interface-style abstract base class for products that can be shipped."""
+
+    @abstractmethod
+    def calculate_shipping_cost(self):
+        """Calculates and returns the shipping cost."""
+        pass
