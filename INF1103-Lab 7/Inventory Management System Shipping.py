@@ -4,6 +4,7 @@ import os
 
 FILENAME = "inventory.json"
 
+
 # ABSTRACT BASE CLASS
 
     def update_stock(self, new_stock): 
@@ -33,6 +34,7 @@ class CanBeShipped(ABC):
     def calculate_shipping_cost(self):
         """Calculates and returns the shipping cost."""
         pass
+
 
 # SUBCLASSES
 
@@ -88,6 +90,7 @@ class DigitalProduct(Product):
             "stock": self._stock,
             "download_size": self.download_size
         }
+
 
 # INVENTORY MANAGEMENT
 
@@ -151,6 +154,7 @@ def load_inventory(inventory):
             print("Error loading JSON file. Starting with empty inventory.")
     else:
         print(f"{FILENAME} not found. Starting with new inventory.")
+
 
 def save_inventory(inventory, silent=False):
     # Saves the current inventory collection to inventory.json.
@@ -222,5 +226,22 @@ def update_stock_menu(inventory):
             print("Stock updated successfully!")
         except ValueError:
             print("Invalid input. Stock must be an integer.")
+    else:
+        print("Product not found.")
+
+
+def search_product_menu(inventory):
+    # Handles user input for searching a product.
+    print("\nSearch Product")
+    item_id = input("Enter Product ID: ").strip()
+
+    product = inventory.search_product(item_id)
+    if product:
+        print("\nProduct Found")
+        print("-" * 55)
+        product.display_information()
+        if isinstance(product, CanBeShipped):
+            print(f"Calculated Shipping Cost: ${product.calculate_shipping_cost():.2f}")
+        print("-" * 55)
     else:
         print("Product not found.")
