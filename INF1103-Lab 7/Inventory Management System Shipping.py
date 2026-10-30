@@ -167,3 +167,41 @@ def save_inventory(inventory, silent=False):
     if not silent:
         print(f"Inventory saved successfully to {FILENAME}.")
 
+
+def add_product_menu(inventory):
+    # Handles user input for adding a new product.
+    print("\nAdd New Product")
+    item_id = input("Product ID: ").strip()
+
+    if inventory.search_product(item_id):
+        print("Product ID already exists!")
+        return
+
+    print("Select Product Type:")
+    print("1. Physical Product")
+    print("2. Digital Product")
+    p_type = input("Enter choice (1/2): ").strip()
+
+    if p_type not in ["1", "2"]:
+        print("Invalid product type selection.")
+        return
+
+    name = input("Product Name: ").strip()
+    try:
+        price = float(input("Price: "))
+        stock = int(input("Stock Quantity: "))
+        
+        if p_type == "1":
+            weight = float(input("Weight (kg): "))
+            new_product = PhysicalProduct(item_id, name, price, stock, weight)
+        else:
+            download_size = float(input("Download Size (MB): "))
+            new_product = DigitalProduct(item_id, name, price, stock, download_size)
+            
+    except ValueError:
+        print("Invalid input value entered.")
+        return
+
+    inventory.add_product(new_product)
+    print("Product added successfully!")
+
